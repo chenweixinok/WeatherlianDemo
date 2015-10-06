@@ -1,6 +1,7 @@
 package weatherliandemo.activity;
 
 import weatherliandemo.app.R;
+import weatherliandemo.service.AutoUpdateService;
 import weatherliandemo.util.HttpCallbackListener;
 import weatherliandemo.util.HttpUtil;
 import weatherliandemo.util.Utility;
@@ -189,6 +190,9 @@ public class WeatherActivity extends Activity implements OnClickListener {
 		currentDateText.setText(prefs.getString("current_date", ""));
 		weatherInfoLayout.setVisibility(View.VISIBLE);
 		cityNameText.setVisibility(View.VISIBLE);
+		
+		Intent intent = new Intent(this, AutoUpdateService.class);
+		startService(intent);
 	}
 	
 	/**

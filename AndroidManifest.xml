@@ -27,6 +27,10 @@
         
         <activity android:name="weatherliandemo.activity.WeatherActivity"></activity>
         <activity android:name="weatherliandemo.activity.ChooseAreaActivity"></activity>
+        
+        <service android:name="weatherliandemo.service.AutoUpdateService"></service>
+		<receiver android:name="weatherliandemo.receiver.AutoUpdateReceiver"></receiver>
+        
     </application>
 
 </manifest>
