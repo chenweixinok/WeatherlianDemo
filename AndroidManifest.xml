@@ -12,11 +12,11 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/aab"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="weatherliandemo.activity.ChooseAreaActivity"
+            android:name="weatherliandemo.activity.LaunchActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,6 +26,7 @@
         </activity>
         
         <activity android:name="weatherliandemo.activity.WeatherActivity"></activity>
+        <activity android:name="weatherliandemo.activity.ChooseAreaActivity"></activity>
     </application>
 
 </manifest>

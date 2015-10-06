@@ -10,12 +10,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class WeatherActivity extends Activity implements OnClickListener {
 	
@@ -52,22 +54,20 @@ public class WeatherActivity extends Activity implements OnClickListener {
 	* 更新天气按钮
 	*/
 	private Button refreshWeather;
+	
+	/**
+	 * 当前时间
+	 */
+	private long nowTime;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 			requestWindowFeature(Window.FEATURE_NO_TITLE);
 			setContentView(R.layout.weather_layout);
-			// 初始化各控件
-			weatherInfoLayout = (LinearLayout) findViewById(R.id.weather_info_layout);
-			cityNameText = (TextView) findViewById(R.id.city_name);
-	
-			publishText = (TextView) findViewById(R.id.publish_text);
-			weatherDespText = (TextView) findViewById(R.id.weather_desp);
-			temp1Text = (TextView) findViewById(R.id.temp1);
-			temp2Text = (TextView) findViewById(R.id.temp2);
-			currentDateText = (TextView) findViewById(R.id.current_date);
-			switchCity = (Button) findViewById(R.id.switch_city);
-			refreshWeather = (Button) findViewById(R.id.refresh_weather);
+			
+			initView();
+			
 			String countyCode = getIntent().getStringExtra("county_code");
 			if (!TextUtils.isEmpty(countyCode)) {
 					// 有县级代号时就去查询天气
@@ -83,6 +83,20 @@ public class WeatherActivity extends Activity implements OnClickListener {
 			refreshWeather.setOnClickListener(this);
 	}
 	
+	private void initView() {
+		// 初始化各控件
+					weatherInfoLayout = (LinearLayout) findViewById(R.id.weather_info_layout);
+					cityNameText = (TextView) findViewById(R.id.city_name);
+			
+					publishText = (TextView) findViewById(R.id.publish_text);
+					weatherDespText = (TextView) findViewById(R.id.weather_desp);
+					temp1Text = (TextView) findViewById(R.id.temp1);
+					temp2Text = (TextView) findViewById(R.id.temp2);
+					currentDateText = (TextView) findViewById(R.id.current_date);
+					switchCity = (Button) findViewById(R.id.switch_city);
+					refreshWeather = (Button) findViewById(R.id.refresh_weather);
+
+	}
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -175,6 +189,23 @@ public class WeatherActivity extends Activity implements OnClickListener {
 		currentDateText.setText(prefs.getString("current_date", ""));
 		weatherInfoLayout.setVisibility(View.VISIBLE);
 		cityNameText.setVisibility(View.VISIBLE);
+	}
+	
+	/**
+	 * 连续两次点击退出
+	 */
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (System.currentTimeMillis() - nowTime > 2000) {
+				Toast.makeText(this, R.string.exit_two, Toast.LENGTH_SHORT).show();
+				nowTime = System.currentTimeMillis();
+				return true;
+			}else {
+				finish();
+			}
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 }
