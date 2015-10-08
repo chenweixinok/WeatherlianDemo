@@ -1,5 +1,7 @@
 package weatherliandemo.activity;
 
+import net.youmi.android.banner.AdSize;
+import net.youmi.android.banner.AdView;
 import weatherliandemo.app.R;
 import weatherliandemo.service.AutoUpdateService;
 import weatherliandemo.util.HttpCallbackListener;
@@ -11,6 +13,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -67,6 +70,15 @@ public class WeatherActivity extends Activity implements OnClickListener {
 			requestWindowFeature(Window.FEATURE_NO_TITLE);
 			setContentView(R.layout.weather_layout);
 			
+			//实例化广告条
+			AdView adView = new AdView(this, AdSize.FIT_SCREEN);
+			//获取要嵌入广告条的布局
+			LinearLayout adLayout = (LinearLayout) findViewById(R.id.adLayout);
+			//将广告条加入到布局中
+			adLayout.addView(adView);
+			
+			
+			
 			initView();
 			
 			String countyCode = getIntent().getStringExtra("county_code");
@@ -110,8 +122,7 @@ public class WeatherActivity extends Activity implements OnClickListener {
 			
 	case R.id.refresh_weather:
 			publishText.setText("同步中...");
-			SharedPreferences prefs = PreferenceManager.
-			getDefaultSharedPreferences(this);
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 			String weatherCode = prefs.getString("weather_code", "");
 			if (!TextUtils.isEmpty(weatherCode)) {
 				queryWeatherInfo(weatherCode);
@@ -190,6 +201,7 @@ public class WeatherActivity extends Activity implements OnClickListener {
 		currentDateText.setText(prefs.getString("current_date", ""));
 		weatherInfoLayout.setVisibility(View.VISIBLE);
 		cityNameText.setVisibility(View.VISIBLE);
+		
 		
 		Intent intent = new Intent(this, AutoUpdateService.class);
 		startService(intent);

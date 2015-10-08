@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">信联天气</string>
+    <string name="app_name">简派天气</string>
     <string name="action_settings">Settings</string>
     <string name="exit_two">再次按下程序退出</string>
-	<string name="launch_xin">信</string>
-	<string name="launch_lian">联</string>
+	<string name="launch_xin">简</string>
+	<string name="launch_lian">派</string>
 	<string name="launch_weather">天气</string>
-     <string name="author">weather.作者：ChenweixinOk&amp;陈伟信</string>
+     <string name="author">weather:【作者：ChenweixinOk&amp;陈伟信】</string>
 </resources>

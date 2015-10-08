@@ -3,6 +3,7 @@ package weatherliandemo.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.youmi.android.AdManager;
 import weatherliandemo.app.R;
 import weatherliandemo.db.CoolWeatherDB;
 import weatherliandemo.model.City;
@@ -71,6 +72,8 @@ public class ChooseAreaActivity extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		AdManager.getInstance(this).init("fd23287e5b23cd02", "69bb3dabd1ff459f", false);
 		
 		isFromWeatherActivity = getIntent().getBooleanExtra("from_weather_activity", false);
 		
